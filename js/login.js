@@ -19,6 +19,6 @@ function verificar(){
 document.addEventListener("DOMContentLoaded", ()=>{
    let usuario = JSON.parse(localStorage.getItem('usuario'));
    if (usuario.estado== 'conectado'){
-       location.href = '../Proyecto-Ecommerce-DW-220/index.html';
+       location.href = 'index.html';
    }
 });
