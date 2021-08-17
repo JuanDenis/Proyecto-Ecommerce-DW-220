@@ -1,6 +1,24 @@
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
-document.addEventListener("DOMContentLoaded", function(e){
+function verificar(){
+    let dato = document.getElementById('nombre');
+    let contrasena = document.getElementById('password');
+    let usuario = {};
 
+
+    if (dato.value.trim() === '' || contrasena.value.trim() === '')
+    {
+        alert('Debe completar los campos vacíos');
+    }else {
+        location.href = "index.html";
+        usuario.nombre = dato.value;
+        usuario.password = dato.value;
+        usuario.estado = "conectado";
+
+        localStorage.setItem('usuario',JSON.stringify(usuario));
+    }   
+}
+document.addEventListener("DOMContentLoaded", ()=>{
+   let usuario = JSON.parse(localStorage.getItem('usuario'));
+   if (usuario.estado== 'conectado'){
+       location.href = "index.html";
+   }
 });
