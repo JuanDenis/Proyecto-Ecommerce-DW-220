@@ -77,3 +77,8 @@ body {
   .login a:hover {
     color: #fff;
   }
+
+  .g-signin2 {
+    padding-top: -5px;
+    padding-left: 72px;
+  }
