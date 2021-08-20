@@ -8,7 +8,7 @@ body {
   }
   .login {
     width: 320px;
-    height: 470px;
+    height: 420px;
     background: #000;
     color: #fff;
     top: 50%;
@@ -81,4 +81,8 @@ body {
   .g-signin2 {
     padding-top: -5px;
     padding-left: 72px;
+  }
+ 
+  .opciones {
+    padding-top: 10px;
   }
