@@ -1,11 +1,16 @@
 var categoriesArray = [];
+var minCount = undefined;
+var maxCount = undefined;
 
 function showCategoriesList(array){
 
     let htmlContentToAppend = "";
-    for(let i = 0; i < array.length; i++){
+    for (let i = 0; i < array.length; i++) {
         let category = array[i];
-        console.log(category);
+
+        if (((minCount == undefined) || (minCount != undefined && parseInt(category.cost) >= minCount)) &&
+            ((maxCount == undefined) || (maxCount != undefined && parseInt(category.cost) <= maxCount))) {
+
         htmlContentToAppend += `
         <div class="list-group-item list-group-item-action">
             <div class="row">
@@ -15,6 +20,7 @@ function showCategoriesList(array){
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
                         <h4 class="mb-1">`+ category.name +`</h4>
+                        <h6 class='mb-1'> ` + category.cost + category.currency + ` <h4> 
                         <small class="text-muted">` + category.soldCount + ` artículos</small>
                     </div>
                     <div class="d-flex w-100 justify-content-between">
@@ -26,7 +32,64 @@ function showCategoriesList(array){
         `
 
         document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
+       }
     }
+}
+
+document.getElementById("rangeFilterCount").addEventListener("click", function(){
+
+    minCount = document.getElementById("rangeFilterCountMin").value;
+    maxCount = document.getElementById("rangeFilterCountMax").value;
+
+    if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0){
+        minCount = parseInt(minCount);
+    }
+    else{
+        minCount = undefined;
+    }
+
+    if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0){
+        maxCount = parseInt(maxCount);
+    }
+    else{
+        maxCount = undefined;
+    }
+
+    showCategoriesList(categoriesArray);
+});
+
+document.getElementById("clearRangeFilter").addEventListener("click", function(){
+    document.getElementById("rangeFilterCountMin").value = "";
+    document.getElementById("rangeFilterCountMax").value = "";
+
+    minCount = undefined;
+    maxCount = undefined;
+
+    showCategoriesList(categoriesArray);
+});
+
+const ordenarRel = () => {
+    categoriesArray.sort(function (a, b) {
+        return b.soldCount - a.soldCount;
+    });
+
+    showCategoriesList(categoriesArray);
+}
+
+const ordenarPrecio = () => {
+    categoriesArray.sort(function (a, b) {
+        return b.cost - a.cost;
+    });
+
+    showCategoriesList(categoriesArray);
+}
+
+const ordenarPrecioDes = () => {
+    categoriesArray.sort(function (a, b) {
+        return a.cost - b.cost;
+    });
+
+    showCategoriesList(categoriesArray);
 }
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
